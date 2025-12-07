@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reflex Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: absolute;
+      display: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #hud {
+      position: fixed;
+      top: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div id="hud">
+  Time: <span id="time">15</span> |
+  Score: <span id="score">0</span>
+  <button id="retry" style="margin-top: 60px; font-size: 20px;">Retry</button>
+</div>
+
+<div id="box"></div>
+
+<script>
+  let score = 0;
+  let timeLeft = 15;
+  let gameInterval;
+  let timerInterval;
+
+  const box = document.getElementById("box");
+  const scoreDisplay = document.getElementById("score");
+  const timeDisplay = document.getElementById("time");
+
+  function randomPosition() {
+    const maxX = window.innerWidth - 100;
+    const maxY = window.innerHeight - 100;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    box.style.left = x + "px";
+    box.style.top = y + "px";
+  }
+
+  function spawnBox() {
+    randomPosition();
+    box.style.display = "block";
+  }
+
+  function startGame() {
+    score = 0;
+    timeLeft = 10;
+    scoreDisplay.textContent = score;
+    timeDisplay.textContent = timeLeft;
+
+    spawnBox();
+
+    // Time for playing
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      timeDisplay.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        endGame();
+      }
+    }, 1000);
+  }
+
+  function endGame() {
+    clearInterval(timerInterval);
+    box.style.display = "none";
+    alert("Time's up! Your score: " + score);
+  }
+
+  box.onclick = function () {
+    score++;
+    scoreDisplay.textContent = score;
+    spawnBox();
+  };
+
+  document.getElementById("retry").onclick = function () {
+  endGame();    
+  startGame();    
+};
+
+  startGame();
+</script>
+
+</body>
+</html>
