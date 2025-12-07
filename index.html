@@ -8,24 +8,20 @@
       text-align: center;
       margin: 0;
       padding: 0;
-      overflow: hidden;
     }
 
     #box {
       width: 100px;
       height: 100px;
-      background-color: red;
+      background-color: black;
       position: absolute;
-      display: none;
-      border-radius: 10px;
-      cursor: pointer;
     }
 
     #hud {
       position: fixed;
       top: 0px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%);
       font-size: 24px;
       font-weight: bold;
     }
@@ -36,7 +32,7 @@
 <div id="hud">
   Time: <span id="time">15</span> |
   Score: <span id="score">0</span>
-  <button id="retry" style="margin-top: 60px; font-size: 20px;">Retry</button>
+  <button id="retry">Retry</button>
 </div>
 
 <div id="box"></div>
@@ -69,13 +65,12 @@
 
   function startGame() {
     score = 0;
-    timeLeft = 10;
+    timeLeft = 15;
     scoreDisplay.textContent = score;
     timeDisplay.textContent = timeLeft;
 
     spawnBox();
 
-    // Time for playing
     timerInterval = setInterval(() => {
       timeLeft--;
       timeDisplay.textContent = timeLeft;
